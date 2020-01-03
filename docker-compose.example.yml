@@ -1,0 +1,54 @@
+version: '3'
+
+networks: 
+    default:
+
+services: 
+    python:
+        container_name: app-python
+        build:
+            context: .
+            dockerfile: ./python/Dockerfile
+        volumes: 
+            - ./python:/app
+            - static:/app/static_cdn
+            - media:/app/media_cdn
+        depends_on: 
+            - mysql
+        expose: 
+            - 8080
+        command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 projectname.wsgi -b 0.0.0.0:8080"
+    nginx:
+        container_name: app-nginx
+        volumes: 
+            - ./nginx/:/etc/nginx/conf.d
+            - ./logs/:/code/logs
+            - static:/code/static_cdn
+            - media:/code/media_cdn
+        ports: 
+            - "1221:80"
+        depends_on: 
+            - python
+            - mysql
+        networks:
+            - default  
+    mysql:
+        container_name: app-mysql
+        image: mysql:5.7.27
+        restart: unless-stopped
+        ports:
+            - 127.0.0.1:3306:3306
+        environment:
+        MYSQL_HOST: localhost
+        MYSQL_DATABASE: django-twitter
+        MYSQL_USER: django-twitter
+        MYSQL_PASSWORD: django-twitter
+        MYSQL_ROOT_PASSWORD: django-twitter
+        SERVICE_TAGS: dev
+        SERVICE_NAME: mysql
+        networks:
+            - default
+volumes: 
+    media:
+    static:  
+    mysql:
