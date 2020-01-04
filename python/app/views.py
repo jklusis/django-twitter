@@ -1,4 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
-def home(request):
-    return render(request, 'home.html')
+def index(request):
+    if request.user.is_anonymous:
+        return render(request, 'index.html')
+
+    return render(request, 'dashboard.html')

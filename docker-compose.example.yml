@@ -43,6 +43,7 @@ services:
             - 127.0.0.1:3306:3306
         volumes:
             - mysql:/var/lib/mysql:delegated
+            - mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
         environment:
             MYSQL_HOST: localhost
             MYSQL_DATABASE: "django-twitter"

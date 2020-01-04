@@ -1,3 +1,4 @@
 docker-compose.yml
 python/app/__pycache__
-python/app/settings.py
+python/posts/__pycache__
+python/user/__pycache__
