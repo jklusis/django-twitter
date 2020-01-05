@@ -5,6 +5,12 @@
 {% block content %}
 <h2>Settings</h2>
 
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+    {{ success_message}}
+</div>
+{% endif %}
+
 <h4>Profile settings</h4>
 <form method="POST" action="{% url 'update-settings' %}">
     {% csrf_token %}

@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from app.helpers.request import is_post
-from user.services.user_service import update_settings, update_password
+from user.services.user_service import update_user_settings, update_user_password, delete_user_account
+from user.exceptions import UserValidationException
 from user.structures import UserSettingStructure
 
 @login_required(login_url='/sign-in')
@@ -29,27 +30,44 @@ def settings(request):
     return render(request, 'user/settings.html', args)
 
 @login_required(login_url='/sign-in')
-@require_http_methods(["POST"])
 def update_settings(request):
+    if not is_post(request):
+        return redirect('settings')
+
     args = {
         'data': UserSettingStructure(request.POST),
         'errors': {},
     }
+
+    try:
+        update_user_settings(request.user, args['data'])
+        args['success_message'] = 'Settings successfully updated'
+    except UserValidationException as e:
+        args['errors'] = e.errors
 
     return render(request, 'user/settings.html', args)
 
 @login_required(login_url='/sign-in')
-@require_http_methods(["POST"])
 def update_password(request):
+    if not is_post(request):
+        return redirect('settings')
+
     args = {
         'data': UserSettingStructure(request.POST),
         'errors': {},
     }
+
+    try:
+        update_user_password(request.user, args['data'])
+        args['success_message'] = 'Password successfully changed'
+    except UserValidationException as e:
+        args['errors'] = e.errors
 
     return render(request, 'user/settings.html', args)
 
 @login_required(login_url='/sign-in')
 @require_http_methods(["POST"])
 def delete_account(request):
+    delete_user_account(request)
 
     return redirect('index')

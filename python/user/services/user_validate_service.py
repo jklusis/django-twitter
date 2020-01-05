@@ -37,3 +37,9 @@ def validate_password_confirm(password, password_confirm):
         return 'Password and password confirm does not match'
 
     return None
+
+def verify_password(user, password):
+    if not user.check_password(password):
+        return 'Invalid password'
+
+    return None
