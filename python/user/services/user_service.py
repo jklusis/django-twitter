@@ -1,22 +1,14 @@
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from authentication.structures import SignUpStructure
-from authentication.exceptions import AuthValidationException
+from user.exceptions import UserValidationException
+from user.structures import UserSettingStructure, UserPasswordStructure
 from user.services.user_validate_service import *
 
-def attempt_sign_up(request, data: SignUpStructure):
-    validate_data(data)
-
-    user = User.objects.create_user(username=data.username, email=data.email, password=data.password, first_name=data.first_name, last_name=data.last_name)
-    user.save()
-
-    user = authenticate(request, username=data.username, password=data.password)
-
-    login(request, user)
-
+def update_settings(user: User, data: UserSettingStructure):
+    validate_user_settings(data)
+    
     return True
 
-def validate_data(data: SignUpStructure):
+def validate_user_settings(data: UserSettingStructure):
     errors = {}
 
     email_error = validate_email(data.email)
@@ -35,6 +27,19 @@ def validate_data(data: SignUpStructure):
     if last_name_error:
         errors['last_name'] = last_name_error
 
+    if errors:
+        raise UserValidationException(errors)
+
+    return True
+
+def update_password(user, data: UserPasswordStructure):
+    validate_user_password(data)
+
+    return True
+
+def validate_user_password(data: UserPasswordStructure):
+    errors = {}
+
     password_error = validate_password(data.password)
     if password_error:
         errors['password'] = password_error
@@ -44,6 +49,8 @@ def validate_data(data: SignUpStructure):
         errors['password_confirm'] = password_confirm_error
 
     if errors:
-        raise AuthValidationException(errors)
+        raise UserValidationException(errors)
 
     return True
+
+    

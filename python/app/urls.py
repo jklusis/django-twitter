@@ -15,14 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views as base_views
+from app import views as base_views
 from authentication import views as authentication_views
+from user import views as user_views
 
 urlpatterns = [
     path('', base_views.index, name='index'),
     path('', base_views.index, name='dashboard'),
+
     path('sign-in', authentication_views.signin, name='signin'),
     path('sign-up', authentication_views.signup, name='signup'),
     path('sign-out', authentication_views.signout, name='signout'),
+
+    path('user/<slug:username>', user_views.profile, name='profile'),
+
+    path('settings', user_views.settings, name='settings'),
+    path('settings/update-settings', user_views.update_settings, name='update-settings'),
+    path('settings/update-password', user_views.update_password, name='update-password'),
+    path('settings/delete-account', user_views.delete_account, name='delete-account'),
+
     path('admin/', admin.site.urls),
 ]
