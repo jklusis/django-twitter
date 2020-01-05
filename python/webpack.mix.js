@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+const webpackConfig = require('./webpack.config.js');
+mix.webpackConfig(webpackConfig);
+
 const staticPath = 'static/build'
 const resourcesPath = 'resources'
 

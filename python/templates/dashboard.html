@@ -3,5 +3,5 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>Feed</h2>
+<dashboard-component :active-user-id="{{ user.id }}" :p-user="{{ user_data }}"></dashboard-component>
 {% endblock %}
