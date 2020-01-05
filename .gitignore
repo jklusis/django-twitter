@@ -1,3 +1,5 @@
 __pycache__/
 docker-compose.yml
 python/logs/
+python/package-lock.json
+python/node_modules
