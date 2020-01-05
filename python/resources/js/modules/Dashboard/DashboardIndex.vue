@@ -1,17 +1,17 @@
 <template>
     <div>
         <h2>Recent posts</h2>
-        <feed-component/>
+        <post-component :active-user-id="activeUserId"/>
     </div>
 </template>
 
 <script>
-    import FeedComponent from '@/modules/Feed/FeedIndex';
+    import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
     export default {
         components: {
-            FeedComponent,
+            PostComponent,
         },
         props: {
             activeUserId: {

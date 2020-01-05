@@ -1,4 +1,4 @@
-class UserFeedDataStructure:
+class UserPostDataStructure:
     def __init__(self, data: dict = {}):
         self.username = data.get('username', '')
         self.post_message = data.get('post_message', '')

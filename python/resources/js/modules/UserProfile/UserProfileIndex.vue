@@ -3,8 +3,8 @@
         <div class="jumbotron py-3">
             <h3>{{ user.first_name }}'s profile (@{{ user.username}})</h3>
 
+            <h5>About:</h5>
             <p>
-                <b>About:</b> <br/>
                 Posts: {{ user.post_count }}<br/>
                 Following: {{ user.following_count }}<br/>
                 Followers: {{ user.follower_count }}<br/>
@@ -19,7 +19,7 @@
         
         <div class="px-3 pb-3">
             <h3>Posts</h3>
-            <feed-component :user-id="user.id"/>
+            <post-component :active-user-id="activeUserId" :user-id="user.id"/>
         </div>
         
     </div>
@@ -27,7 +27,7 @@
 
 <script>
     import moment from 'moment';
-    import FeedComponent from '@/modules/Feed/FeedIndex';
+    import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
     export default {
@@ -37,7 +37,7 @@
             }
         },
         components: {
-            FeedComponent,
+            PostComponent,
         },
         props: {
             activeUserId: {
