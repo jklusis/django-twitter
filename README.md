@@ -10,4 +10,4 @@
 - Rename `docker-compose.example.yml` to `docker-compose.yml`
 - Run `./dj-docker.sh up` in bash to bring up the workspace
 - Run `./dj-docker.sh ssh` in bash to connect to the workspace
-- Run `npm run watch` in bash to run compile scripts for app
+- When in python folder (`cd python`), run `npm run watch` in bash to run compile scripts for app
