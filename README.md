@@ -7,7 +7,7 @@
 
 ## Setup
 - Clone repo
-- Rename `docker-compose.example.yml` to `docker-compose.yml`
-- Run `./dj-docker.sh up` in bash to bring up the workspace
-- Run `./dj-docker.sh ssh` in bash to connect to the workspace
+- Make a duplicate of `docker-compose.example.yml` and rename it to `docker-compose.yml`
+- Run `./docker-dj.sh up` in bash to bring up the workspace
+- Run `./docker-dj.sh ssh` in bash to connect to the workspace
 - When in python folder (`cd python`), run `npm run watch` in bash to run compile scripts for app
