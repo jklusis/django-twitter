@@ -5,7 +5,13 @@
         </div>
 
         <div v-else-if="posts.length">
-            <post-component v-for="post in posts" :post="post" :key="post.id"/>
+            <post-component 
+                v-for="post in posts" 
+                :active-user-id="activeUserId" 
+                :post="post" 
+                :key="post.id"
+                @post-deleted="loadPosts"
+            />
         </div>
 
         <div v-else>

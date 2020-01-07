@@ -11,7 +11,7 @@ def create(user_id:int, post):
     return True
 
 def delete(user_id:int, post_id:int):
-    Post.objects.filter(user_id=user_id, post_id=post_id).delete()
+    Post.objects.filter(user_id=user_id, id=post_id).delete()
 
     return True
 

@@ -40,6 +40,7 @@ urlpatterns = [
     path('settings/delete-account', user_views.delete_account, name='delete-account'),
 
     path('post-rpc/create', post_views.create_post, name='rpc-create-post'),
+    path('post-rpc/delete', post_views.delete_post, name='rpc-delete-post'),
     path('post-rpc/get', post_views.get_feed_posts, name='rpc-get-feed-posts'),
     path('post-rpc/user-feed/<int:user_id>', post_views.get_user_feed_posts, name='rpc-get-user-feed-posts'),
 

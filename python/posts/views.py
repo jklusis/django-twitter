@@ -22,6 +22,9 @@ def create_post(request):
 @login_required(login_url='/sign-in')
 @require_http_methods(["POST"])
 def delete_post(request):
+    # Because ajax and json is received, we need to decode it
+    data = json.loads(request.body)
+    post_id = data.get('post_id')
 
     delete(request.user.id, post_id)
 
