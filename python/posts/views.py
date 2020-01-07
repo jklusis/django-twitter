@@ -2,17 +2,29 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from posts.structures import PostDataStructure
-from posts.services.post_service import get_post_data_structure, get_feed, get_user_feed
+from posts.services.post_service import create, delete, get_feed, get_user_feed, get_post_data_structure
+import json
 
 @login_required(login_url='/sign-in')
 def create_post(request):
+    # Because ajax and json is received, we need to decode it
+    data = json.loads(request.body)
+    post = data.get('post')
 
-    return
+    create(request.user.id, post)
+
+    return JsonResponse({
+        'success': post
+    })
 
 @login_required(login_url='/sign-in')
 def delete_post(request):
 
-    return
+    delete(request.user.id, post_id)
+
+    return JsonResponse({
+        'success': True
+    })
 
 @login_required(login_url='/sign-in')
 def get_feed_posts(request):

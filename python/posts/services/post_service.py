@@ -2,8 +2,17 @@ from datetime import datetime
 from posts.models import Post, PostLike
 from posts.structures import PostDataStructure
 
-def create_post():
-    pass
+def create(user_id:int, post):
+    newPost = Post(user_id=user_id, post=post, created_at=datetime.now(), updated_at=datetime.now())
+
+    newPost.save()
+
+    return True
+
+def delete(user_id:int, post_id:int):
+    Post.objects.filter(user_id=user_id, post_id=post_id).delete()
+
+    return True
 
 def get_feed(user_id: int, offset: int = 0):
     return Post.objects.filter().order_by('-created_at').all()

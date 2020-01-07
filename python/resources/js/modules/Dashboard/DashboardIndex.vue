@@ -3,7 +3,7 @@
         <post-input-component/>
         
         <h2>Recent posts</h2>
-        <post-component :active-user-id="activeUserId"/>
+        <post-component ref="postComponent" :active-user-id="activeUserId" @post-created="onPostCreated"/>
     </div>
 </template>
 
@@ -32,6 +32,11 @@
         }),
         created() {
             this.user = UserDataStructure.fromArray(this.pUser);
+        },
+        methods: {
+            onPostCreated(){
+                this.$refs['postComponent'].loadPosts();
+            }
         }
     }
 </script>

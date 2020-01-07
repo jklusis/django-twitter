@@ -17,11 +17,11 @@
             </template>
         </div>
 
-        <post-input-component v-if="isOwner"/>
+        <post-input-component v-if="isOwner" @post-created="onPostCreated"/>
         
         <div class="px-3 pb-3">
             <h2>Posts</h2>
-            <post-component :active-user-id="activeUserId" :user-id="user.id"/>
+            <post-component ref="postComponent" :active-user-id="activeUserId" :user-id="user.id"/>
         </div>
         
     </div>
@@ -63,6 +63,11 @@
         },
         created() {
             this.user = UserDataStructure.fromArray(this.pUser);
+        },
+        methods: {
+            onPostCreated(){
+                this.$refs['postComponent'].loadPosts();
+            }
         }
     }
 </script>

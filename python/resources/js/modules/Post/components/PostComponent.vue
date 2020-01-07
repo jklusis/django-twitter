@@ -23,7 +23,7 @@ import {PostDataStructure} from '@/modules/Post/post.structures';
     export default {
         filters: {
             formatUnix(string) {
-                return moment.unix(string).format("DD/MM/YYYY");
+                return moment.unix(string).format("HH:mm:ss DD/MM/YYYY");
             }
         },
         

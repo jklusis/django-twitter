@@ -37,10 +37,10 @@
             submitPost() {
                 this.isLoading = true;
 
-                axios.post('/post-rpc/submit', {
+                axios.post('/post-rpc/create', {
                     'post': this.post
                 }).then((response) => {
-                    this.$emit('post-submitted');
+                    this.$emit('post-created');
                     this.post = '';
                 }).finally(() => {
                     this.isLoading = false;

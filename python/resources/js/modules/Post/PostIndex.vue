@@ -1,8 +1,16 @@
 <template>
     <div>
-        <template v-for="post in posts">
-            <post-component :post="post" :key="post.id"/>
-        </template>
+        <div v-if="!posts.length && isLoading">
+            Loading..
+        </div>
+
+        <div v-else-if="posts.length">
+            <post-component v-for="post in posts" :post="post" :key="post.id"/>
+        </div>
+
+        <div v-else>
+            Nothing posted yet
+        </div>
     </div>
 </template>
 
@@ -45,6 +53,10 @@
 
         methods: {
             loadPosts() {
+                if (this.isLoading) {
+                    return;
+                }
+                
                 this.isLoading = true;
 
                 axios.post(this.postUrl)
