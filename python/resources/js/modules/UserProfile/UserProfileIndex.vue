@@ -16,9 +16,11 @@
                 <button class="btn btn-primary">Follow</button>
             </template>
         </div>
+
+        <post-input-component v-if="isOwner"/>
         
         <div class="px-3 pb-3">
-            <h3>Posts</h3>
+            <h2>Posts</h2>
             <post-component :active-user-id="activeUserId" :user-id="user.id"/>
         </div>
         
@@ -27,6 +29,7 @@
 
 <script>
     import moment from 'moment';
+    import PostInputComponent from '@/components/PostInputComponent';
     import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
@@ -37,6 +40,7 @@
             }
         },
         components: {
+            PostInputComponent,
             PostComponent,
         },
         props: {

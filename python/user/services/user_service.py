@@ -96,7 +96,7 @@ def get_user_data_structure(user):
     data.first_name = user.first_name
     data.last_name = user.last_name
     data.date_joined = int(datetime.timestamp(user.date_joined))
-    data.following_count = 420
+    data.following_count = 42000
     data.follower_count = 69
     data.post_count = 96
 

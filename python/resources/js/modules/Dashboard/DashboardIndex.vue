@@ -1,16 +1,20 @@
 <template>
     <div>
+        <post-input-component/>
+        
         <h2>Recent posts</h2>
         <post-component :active-user-id="activeUserId"/>
     </div>
 </template>
 
 <script>
+    import PostInputComponent from '@/components/PostInputComponent';
     import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
     export default {
         components: {
+            PostInputComponent,
             PostComponent,
         },
         props: {
