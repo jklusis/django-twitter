@@ -23,7 +23,12 @@
         
         <div class="px-3 pb-3">
             <h2>Posts</h2>
-            <post-component ref="postComponent" :active-user-id="activeUserId" :user-id="user.id"/>
+            <post-component 
+                ref="postComponent" 
+                :active-user-id="activeUserId" 
+                :user-id="user.id"
+                @post-deleted="onPostDeleted"
+            />
         </div>
         
     </div>
@@ -86,6 +91,10 @@
             onPostCreated() {
                 this.user.post_count++;
                 this.$refs['postComponent'].loadPosts();
+            },
+
+            onPostDeleted() {
+                this.user.post_count--;
             }
         }
     }

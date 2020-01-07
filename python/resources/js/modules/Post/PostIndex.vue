@@ -10,7 +10,7 @@
                 :active-user-id="activeUserId" 
                 :post="post" 
                 :key="post.id"
-                @post-deleted="loadPosts"
+                @post-deleted="onPostDeleted"
             />
         </div>
 
@@ -78,6 +78,11 @@
                     this.isLoading = false;
                 });
             },
+
+            onPostDeleted() {
+                this.loadPosts();
+                this.$emit('post-deleted');
+            }
         },
     }
 </script>
