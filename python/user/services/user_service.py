@@ -5,6 +5,7 @@ from user.models import UserFollow
 from user.exceptions import UserValidationException
 from user.structures import UserSettingStructure, UserDataStructure
 from user.services.user_validate_service import *
+from user.services.user_follow_service import *
 from posts.services.post_service import get_user_post_count
 
 def update_user_settings(user: User, data: UserSettingStructure):
@@ -98,8 +99,8 @@ def get_user_data_structure(user):
     data.first_name = user.first_name
     data.last_name = user.last_name
     data.date_joined = int(datetime.timestamp(user.date_joined))
-    data.following_count = UserFollow.objects.filter(following_user_id=user.id).count()
-    data.follower_count = UserFollow.objects.filter(followed_user_id=user.id).count()
+    data.following_count = get_user_following_count(user.id)
+    data.follower_count = get_user_follower_count(user.id)
     data.post_count = get_user_post_count(user.id)
 
     return data

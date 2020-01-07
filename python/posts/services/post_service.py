@@ -1,4 +1,5 @@
 from datetime import datetime
+from user.models import UserFollow
 from posts.models import Post, PostLike
 from posts.structures import PostDataStructure
 
@@ -14,10 +15,14 @@ def delete(user_id:int, post_id:int):
 
     return True
 
-def get_feed(user_id: int, offset: int = 0):
-    return Post.objects.filter().order_by('-created_at').all()
+def get_feed(user_id: int):
+    followed_user_ids = UserFollow.objects.filter(following_user_id=user_id).values('followed_user_id')
+
+    combined_queryset = Post.objects.filter(user_id__in=followed_user_ids) | Post.objects.filter(user_id=user_id) # Include also user
+
+    return combined_queryset.order_by('-created_at').all()
     
-def get_user_feed(user_id: int, offset: int = 0):
+def get_user_feed(user_id: int):
     return Post.objects.filter(user_id=user_id).order_by('-created_at').all()
 
 def get_user_post_count(user_id: int):
