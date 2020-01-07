@@ -1,11 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from posts.structures import PostDataStructure
 from posts.services.post_service import create, delete, get_feed, get_user_feed, get_post_data_structure
 import json
 
 @login_required(login_url='/sign-in')
+@require_http_methods(["POST"])
 def create_post(request):
     # Because ajax and json is received, we need to decode it
     data = json.loads(request.body)
@@ -18,6 +20,7 @@ def create_post(request):
     })
 
 @login_required(login_url='/sign-in')
+@require_http_methods(["POST"])
 def delete_post(request):
 
     delete(request.user.id, post_id)
@@ -27,6 +30,7 @@ def delete_post(request):
     })
 
 @login_required(login_url='/sign-in')
+@require_http_methods(["POST"])
 def get_feed_posts(request):
     posts = get_feed(request.user.id)
 
@@ -39,6 +43,7 @@ def get_feed_posts(request):
     })
 
 @login_required(login_url='/sign-in')
+@require_http_methods(["POST"])
 def get_user_feed_posts(request, user_id):
     posts = get_user_feed(user_id)
 

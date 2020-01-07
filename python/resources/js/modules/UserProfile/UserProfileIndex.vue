@@ -13,7 +13,9 @@
 
             <template v-if="!isOwner">
                 <hr class="my-4">
-                <button class="btn btn-primary">Follow</button>
+                <button class="btn" :class="{'btn-danger': isFollowing, 'btn-success': !isFollowing}" @click="toggleFollowing">
+                    {{ isFollowing ? 'Unfollow' : 'Follow'}}
+                </button>
             </template>
         </div>
 
@@ -28,6 +30,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import moment from 'moment';
     import PostInputComponent from '@/modules/Post/components/PostInputComponent';
     import PostComponent from '@/modules/Post/PostIndex';
@@ -48,12 +51,17 @@
                 required: true,
                 type: Number,
             },
+            pIsFollowing: {
+                required: true,
+                type: Boolean,
+            },
             pUser: {
                 required: true,
                 type: Object,
             },
         },
         data: () => ({
+            isFollowing: null,
             user: null,
         }),
         computed: {
@@ -62,10 +70,21 @@
             }
         },
         created() {
+            this.isFollowing = this.pIsFollowing;
             this.user = UserDataStructure.fromArray(this.pUser);
         },
         methods: {
-            onPostCreated(){
+            toggleFollowing() {
+                axios.post('/user-rpc/toggle-follow', {
+                    'user_id': this.user.id,
+                }).then((response) => {
+                    this.isFollowing ? this.user.follower_count-- : this.user.follower_count++;
+                    this.isFollowing = response.data.is_following;
+                });
+            },
+
+            onPostCreated() {
+                this.user.post_count++;
                 this.$refs['postComponent'].loadPosts();
             }
         }

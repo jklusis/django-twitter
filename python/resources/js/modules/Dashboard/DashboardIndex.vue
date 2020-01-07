@@ -1,9 +1,9 @@
 <template>
     <div>
-        <post-input-component/>
+        <post-input-component @post-created="onPostCreated"/>
         
         <h2>Recent posts</h2>
-        <post-component ref="postComponent" :active-user-id="activeUserId" @post-created="onPostCreated"/>
+        <post-component ref="postComponent" :active-user-id="activeUserId"/>
     </div>
 </template>
 

@@ -32,6 +32,8 @@ urlpatterns = [
 
     path('user/<slug:username>', user_views.profile, name='profile'),
 
+    path('user-rpc/toggle-follow', user_views.toggle_follow_user, name='rpc-toggle-follow-user'),
+
     path('settings', user_views.settings, name='settings'),
     path('settings/update-settings', user_views.update_settings, name='update-settings'),
     path('settings/update-password', user_views.update_password, name='update-password'),

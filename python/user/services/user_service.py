@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from user.models import UserFollow
 from user.exceptions import UserValidationException
 from user.structures import UserSettingStructure, UserDataStructure
 from user.services.user_validate_service import *
@@ -97,8 +98,9 @@ def get_user_data_structure(user):
     data.first_name = user.first_name
     data.last_name = user.last_name
     data.date_joined = int(datetime.timestamp(user.date_joined))
-    data.following_count = 42000
-    data.follower_count = 69
+    data.following_count = UserFollow.objects.filter(following_user_id=user.id).count()
+    data.follower_count = UserFollow.objects.filter(followed_user_id=user.id).count()
     data.post_count = get_user_post_count(user.id)
 
     return data
+
