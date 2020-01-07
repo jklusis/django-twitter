@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from user.exceptions import UserValidationException
 from user.structures import UserSettingStructure, UserDataStructure
 from user.services.user_validate_service import *
+from posts.services.post_service import get_user_post_count
 
 def update_user_settings(user: User, data: UserSettingStructure):
     validate_user_settings(user, data)
@@ -98,6 +99,6 @@ def get_user_data_structure(user):
     data.date_joined = int(datetime.timestamp(user.date_joined))
     data.following_count = 42000
     data.follower_count = 69
-    data.post_count = 96
+    data.post_count = get_user_post_count(user.id)
 
     return data

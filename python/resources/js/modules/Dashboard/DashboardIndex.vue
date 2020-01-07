@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import PostInputComponent from '@/components/PostInputComponent';
+    import PostInputComponent from '@/modules/Post/components/PostInputComponent';
     import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
