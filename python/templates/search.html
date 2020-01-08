@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<h2>Search users</h2>
+
+<form>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <div class="input-group">
+        <input id="username" name="username" type="text" class="form-control" placeholder="Username" value="{{ username }}">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+  </div>
+</form>
+
+{% if users %}
+<h3>Users:</h3>
+{% endif %}
+
+{% for user in users %}
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-8 pt-2">
+        {{ user.first_name }} {{ user.last_name}} (@{{ user.username }})
+      </div>
+
+      <div class="col-md-4 text-md-right">
+        <a class="btn btn-primary" href="{% url 'profile' username=user.username %}">View</a>
+      </div>
+      
+    </span>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

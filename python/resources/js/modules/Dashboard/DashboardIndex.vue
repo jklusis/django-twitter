@@ -1,16 +1,20 @@
 <template>
     <div>
+        <post-input-component @post-created="onPostCreated"/>
+        
         <h2>Recent posts</h2>
-        <post-component :active-user-id="activeUserId"/>
+        <post-component ref="postComponent" :active-user-id="activeUserId"/>
     </div>
 </template>
 
 <script>
+    import PostInputComponent from '@/modules/Post/components/PostInputComponent';
     import PostComponent from '@/modules/Post/PostIndex';
     import {UserDataStructure} from '@/structures/user.structures';
 
     export default {
         components: {
+            PostInputComponent,
             PostComponent,
         },
         props: {
@@ -28,6 +32,11 @@
         }),
         created() {
             this.user = UserDataStructure.fromArray(this.pUser);
+        },
+        methods: {
+            onPostCreated(){
+                this.$refs['postComponent'].loadPosts();
+            }
         }
     }
 </script>

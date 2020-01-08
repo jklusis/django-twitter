@@ -1,9 +1,11 @@
 import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from app.helpers.request import is_post
 from user.services.user_service import update_user_settings, update_user_password, delete_user_account, get_user_by_username, get_user_data_structure
+from user.services.user_follow_service import get_is_following, toggle_follow
 from user.exceptions import UserValidationException
 from user.structures import UserSettingStructure, UserDataStructure
 
@@ -19,6 +21,7 @@ def profile(request, username):
 
     return render(request, 'user/profile.html', {
         'username': username,
+        'is_following': json.dumps(get_is_following(request.user.id, user.id)),
         'user_data': json.dumps(data.__dict__)
     })
 
@@ -81,3 +84,15 @@ def delete_account(request):
     delete_user_account(request)
 
     return redirect('index')
+
+@login_required(login_url='/sign-in')
+@require_http_methods(["POST"])
+def toggle_follow_user(request):
+    # Because ajax and json is received, we need to decode it
+    data = json.loads(request.body)
+    user_id = data.get('user_id')
+
+    return JsonResponse({
+        'is_following': toggle_follow(request.user.id, user_id)
+    })
+    

@@ -3,5 +3,5 @@
 {% block title %}{{ username }}'s profile{% endblock %}
 
 {% block content %}
-<user-profile-component :active-user-id="{{ user.id }}" :p-user="{{ user_data }}"></user-profile-component>
+<user-profile-component :active-user-id="{{ user.id }}" :p-is-following="{{ is_following }}" :p-user="{{ user_data }}"></user-profile-component>
 {% endblock %}

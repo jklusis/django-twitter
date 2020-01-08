@@ -23,6 +23,7 @@
       <div class="collapse navbar-collapse" id="navCollapse">
           <div class="navbar-nav navbar-right">
           {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'search' %}">Search</a>
             <a class="nav-item nav-link" href="{% url 'profile' username=user.username %}">Profile</a>
             <a class="nav-item nav-link" href="{% url 'settings' %}">Settings</a>
             <a id="js--sign-out-link" class="nav-item nav-link" href="#">Sign out</a>
@@ -48,7 +49,10 @@
 
         <footer>
           <hr>
-          <p class="text-center small">Django Twitter 2020, All rights reserved<br><div class="text-muted small">Made by Audris, Aleksejs, Jānis</div></p>
+          <p class="text-center small">
+            Django Twitter 2020, All rights reserved<br>
+            <div class="text-muted small">Made by Audris, Jānis</div>
+          </p>
         </footer>
       </div>
     </div>
