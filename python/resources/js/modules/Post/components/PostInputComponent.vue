@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>Post something..</h4>
+        <h4>Post something</h4>
 
         <div class="input-group">
             <input v-model="post" type="text" class="form-control" placeholder="What's on your mind?">
