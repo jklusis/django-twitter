@@ -88,7 +88,10 @@ def delete_user_account(request):
     return True
 
 def get_user_by_username(username):
-    return User.objects.get(username=username)
+    try:
+        return User.objects.get(username=username)
+    except:
+        return None
 
 def get_users_by_username(username):
     return User.objects.filter(username__contains=username).all()

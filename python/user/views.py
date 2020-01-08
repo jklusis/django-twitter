@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
@@ -15,7 +15,7 @@ def profile(request, username):
     user = get_user_by_username(username)
 
     if not user:
-        return 'rip'
+        raise Http404("User not found!")
 
     data = get_user_data_structure(user)
 
