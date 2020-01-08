@@ -8,6 +8,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=False)
     updated_at = models.DateTimeField(auto_now_add=False)
 
+    def __str__(self): # Necessary for django admin readability
+        return str(self.id) + "_posted_by_" + self.user.username
+
 class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
