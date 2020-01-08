@@ -26,6 +26,8 @@ urlpatterns = [
     path('', base_views.index, name='index'),
     path('', base_views.index, name='dashboard'),
 
+    path('search', base_views.search, name='search'),
+
     path('sign-in', authentication_views.signin, name='signin'),
     path('sign-up', authentication_views.signup, name='signup'),
     path('sign-out', authentication_views.signout, name='signout'),

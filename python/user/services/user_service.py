@@ -89,6 +89,9 @@ def delete_user_account(request):
 
 def get_user_by_username(username):
     return User.objects.get(username=username)
+
+def get_users_by_username(username):
+    return User.objects.filter(username__contains=username).all()
     
 def get_user_data_structure(user):
     data = UserDataStructure()

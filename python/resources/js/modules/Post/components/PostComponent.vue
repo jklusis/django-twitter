@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h5 class="mt-0 mb-1">
-                    <a :href="getUrl()" target="_blank">@{{ post.username }}</a>
+                    <a :href="getUrl()">@{{ post.username }}</a>
                     
                     <template v-if="isPostOwner">
                         <button class="btn btn-sm btn-danger py-0 px-2" @click="deletePost">Delete post</button>
